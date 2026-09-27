@@ -1,4 +1,4 @@
-/*	$OpenBSD: passwd.c,v 1.57 2026/03/11 14:59:10 deraadt Exp $	*/
+/*	$OpenBSD: passwd.c,v 1.57.2.1 2026/09/27 16:21:36 bluhm Exp $	*/
 
 /*
  * Copyright (c) 1987, 1993, 1994, 1995
@@ -394,7 +394,7 @@ pw_scan(char *bp, struct passwd *pw, int *flags)
 
 	if (!(p = strsep(&bp, ":")))			/* uid */
 		goto fmt;
-	pw->pw_uid = strtonum(p, -1, UID_MAX, &errstr);
+	pw->pw_uid = strtonum(p, -1, UID_MAX - 1, &errstr);
 	if (errstr != NULL) {
 		if (*p != '\0') {
 			warnx("uid is %s", errstr);
@@ -410,7 +410,7 @@ pw_scan(char *bp, struct passwd *pw, int *flags)
 
 	if (!(p = strsep(&bp, ":")))			/* gid */
 		goto fmt;
-	pw->pw_gid = strtonum(p, -1, GID_MAX, &errstr);
+	pw->pw_gid = strtonum(p, -1, GID_MAX - 1, &errstr);
 	if (errstr != NULL) {
 		if (*p != '\0') {
 			warnx("gid is %s", errstr);
